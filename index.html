@@ -63,7 +63,6 @@
         const { useState, useMemo, useEffect } = React;
 
         // --- FIREBASE CONFIG ---
-        // Configuração injetada pelo ambiente ou fallback
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app';
         
@@ -93,7 +92,7 @@
         const Cloud = (props) => <IconBase {...props}><path d="M17.5 19c0-3.037-2.463-5.5-5.5-5.5S6.5 15.963 6.5 19"/><path d="M12 13.5v-8"/><path d="M12 5.5l4 4"/><path d="M12 5.5l-4 4"/></IconBase>;
         const AlertCircle = (props) => <IconBase {...props}><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></IconBase>;
 
-        // --- DADOS INICIAIS (Fallback) ---
+        // --- DADOS INICIAIS ---
         const initialData = [
             { id: 1, entidade: 'SESI', unidade: 'Campinas', nome: 'Gabriel Rodrigues Masson', graduacao: 'Matemática', admissao: '19/02/24', status: 'Ativo', mentor: 'Jhenifer' },
             { id: 2, entidade: 'SESI', unidade: 'Campinas', nome: 'Gustavo Aguiar Magalhães', graduacao: 'Física', admissao: '08/01/24', status: 'Ativo', mentor: 'Angelo' },
@@ -105,25 +104,24 @@
             { id: 8, entidade: 'SESI', unidade: 'Catalão', nome: 'Arthur Perdiz Franco Mesquita', graduacao: 'Ciências Biológicas', admissao: '08/01/24', status: 'Ativo', mentor: 'Andreia Julio' },
             { id: 9, entidade: 'SESI', unidade: 'Jaiara', nome: 'André Fillype Freitas Nascimento', graduacao: 'Ciências da Computação', admissao: '08/01/24', status: 'Ativo', mentor: 'Sandra' },
             { id: 10, entidade: 'SESI', unidade: 'Jundiaí', nome: 'Jennifer Cristine Dornas', graduacao: 'História', admissao: '07/08/24', status: 'Ativo', mentor: 'Lindaura' },
-            { id: 11, entidade: 'SESI', unidade: 'Jundiaí', nome: 'Maria Luiza Flausino Pereira', graduacao: 'Química', admissao: '01/07/24', status: 'Encerrado', mentor: '-', motivoSaida: '' },
+            { id: 11, entidade: 'SESI', unidade: 'Jundiaí', nome: 'Maria Luiza Flausino Pereira', graduacao: 'Química', admissao: '01/07/24', status: 'Encerrado', mentor: '-', motivoSaida: '', dataEncerramento: '10/03/2025' },
             { id: 12, entidade: 'SESI', unidade: 'Planalto', nome: 'Adriel Silva França', graduacao: 'Educação Física', admissao: '08/07/24', status: 'Ativo', mentor: 'Junior' },
             { id: 13, entidade: 'SESI', unidade: 'Planalto', nome: 'Ana Clara Mehedin Silva Soares', graduacao: 'Pedagogia', admissao: '08/01/24', status: 'Contratado', mentor: 'Nicolas' },
             { id: 14, entidade: 'SESI', unidade: 'Planalto', nome: 'Gabriel Feitosa da Silva Ribeiro', graduacao: 'Matemática', admissao: '20/06/24', status: 'Ativo', mentor: 'Jaime' },
-            { id: 15, entidade: 'SESI', unidade: 'Planalto', nome: 'Hanrry Patrick Viana de Paula', graduacao: 'Engenharia Mecânica', admissao: '08/01/24', status: 'Encerrado', mentor: 'Fernando', motivoSaida: '' },
+            { id: 15, entidade: 'SESI', unidade: 'Planalto', nome: 'Hanrry Patrick Viana de Paula', graduacao: 'Engenharia Mecânica', admissao: '08/01/24', status: 'Encerrado', mentor: 'Fernando', motivoSaida: '', dataEncerramento: '13/02/25' },
             { id: 16, entidade: 'SESI', unidade: 'Crixás', nome: 'Amanda Godinho dos Santos', graduacao: 'Pedagogia', admissao: '19/02/24', status: 'Contratado', mentor: '-' },
             { id: 17, entidade: 'SESI', unidade: 'Rio Verde', nome: 'Lucas Andrade Lima', graduacao: 'Engenharia de Software', admissao: '08/01/24', status: 'Ativo', mentor: 'Mariceu' },
-            { id: 18, entidade: 'SESI', unidade: 'Itumbiara', nome: 'Mateus Divino Rodrigues Ferreira', graduacao: 'Matemática', admissao: '08/01/24', status: 'Encerrado', mentor: '-', motivoSaida: '' },
+            { id: 18, entidade: 'SESI', unidade: 'Itumbiara', nome: 'Mateus Divino Rodrigues Ferreira', graduacao: 'Matemática', admissao: '08/01/24', status: 'Encerrado', mentor: '-', motivoSaida: '', dataEncerramento: '04/02/25' },
             { id: 19, entidade: 'SESI', unidade: 'Rio Verde', nome: 'Maria Victória Ferreira Lopes', graduacao: 'Química', admissao: '06/03/25', status: 'Ativo', mentor: 'Mariceu' },
-            { id: 20, entidade: 'SESI', unidade: 'Niquelândia', nome: 'Joaquim Pereira da Silva Junior', graduacao: '-', admissao: '19/02/24', status: 'Encerrado', mentor: '-', motivoSaida: '' },
+            { id: 20, entidade: 'SESI', unidade: 'Niquelândia', nome: 'Joaquim Pereira da Silva Junior', graduacao: '-', admissao: '19/02/24', status: 'Encerrado', mentor: '-', motivoSaida: '', dataEncerramento: '03/06/2024' },
             { id: 21, entidade: 'SESI', unidade: 'Canaã', nome: 'Nikolle Alexandre Chaves', graduacao: 'Pedagogia', admissao: '15/07/25', status: 'Ativo', mentor: 'Maria Carolina' },
             { id: 22, entidade: 'SESI', unidade: 'Planalto', nome: 'Rafaella Nunes de Sousa', graduacao: '-', admissao: '09/06/25', status: 'Ativo', mentor: '-' },
             { id: 23, entidade: 'SESI', unidade: 'Planalto', nome: 'José Gustavo Santana de Oliveira', graduacao: '-', admissao: '04/09/25', status: 'Ativo', mentor: '-' },
             { id: 24, entidade: 'SESI', unidade: 'Canaã', nome: 'Ana Julia de Almeida Pereira', graduacao: '-', admissao: '15/09/25', status: 'Ativo', mentor: '-' },
             { id: 25, entidade: 'SESI', unidade: 'Colorado', nome: 'Sarah de Jesus Martins', graduacao: '-', admissao: '09/09/25', status: 'Ativo', mentor: '-' },
-            // ...SENAI (abreviado para manter o foco)
-            { id: 26, entidade: 'SENAI', unidade: 'Canaã', nome: 'Gabriel Rodrigues de Morais', graduacao: 'Física Médica', admissao: '19/02/24', status: 'Encerrado', mentor: '-', motivoSaida: '' },
+            { id: 26, entidade: 'SENAI', unidade: 'Canaã', nome: 'Gabriel Rodrigues de Morais', graduacao: 'Física Médica', admissao: '19/02/24', status: 'Encerrado', mentor: '-', motivoSaida: '', dataEncerramento: '27/02/25' },
             { id: 27, entidade: 'SENAI', unidade: 'Catalão', nome: 'Alexandre Ferreira de Carvalho', graduacao: 'Engenharia Mecânica', admissao: '09/08/24', status: 'Ativo', mentor: 'Leonardo Pereira' },
-            { id: 30, entidade: 'SENAI', unidade: 'Charuri', nome: 'Marcos Henrique Rodrigues Porto', graduacao: 'Engenharia Elétrica', admissao: '08/01/24', status: 'Encerrado', mentor: '-', motivoSaida: 'Término de contrato' },
+            { id: 30, entidade: 'SENAI', unidade: 'Charuri', nome: 'Marcos Henrique Rodrigues Porto', graduacao: 'Engenharia Elétrica', admissao: '08/01/24', status: 'Encerrado', mentor: '-', motivoSaida: 'Término de contrato', dataEncerramento: '01/01/2025' },
         ];
 
         // --- COMPONENTES UI ---
@@ -160,26 +158,21 @@
             const [user, setUser] = useState(null);
             const [isSaving, setIsSaving] = useState(false);
 
-            // Filtros
             const [filterEntidade, setFilterEntidade] = useState('Todas');
             const [filterUnidade, setFilterUnidade] = useState('Todas');
             const [filterGraduacao, setFilterGraduacao] = useState('Todas');
             const [filterStatus, setFilterStatus] = useState('Todos');
 
-            // Formulário
             const [formData, setFormData] = useState({
-                nome: '', entidade: 'SESI', unidade: '', graduacao: '', admissao: '', status: 'Ativo', mentor: '', motivoSaida: ''
+                nome: '', entidade: 'SESI', unidade: '', graduacao: '', admissao: '', status: 'Ativo', mentor: '', motivoSaida: '', dataEncerramento: ''
             });
 
-            // --- FIREBASE LOGIC ---
             useEffect(() => {
                 if (!firebaseConfig) {
-                    // Fallback se não houver backend
                     setCollaborators(initialData);
                     setLoading(false);
                     return;
                 }
-
                 const initAuth = async () => {
                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                         await auth.signInWithCustomToken(__initial_auth_token);
@@ -187,18 +180,15 @@
                         await auth.signInAnonymously();
                     }
                 };
-
                 initAuth();
                 const unsubscribeAuth = auth.onAuthStateChanged((u) => {
                     setUser(u);
                     if (u) {
-                        // Listener para dados em tempo real
                         const docRef = db.collection('artifacts').doc(appId).collection('public').doc('data').collection('trainees').doc('list');
                         const unsubscribeData = docRef.onSnapshot((doc) => {
                             if (doc.exists) {
                                 setCollaborators(doc.data().data || []);
                             } else {
-                                // Se não existe, cria com dados iniciais
                                 docRef.set({ data: initialData });
                                 setCollaborators(initialData);
                             }
@@ -213,7 +203,6 @@
                 return () => unsubscribeAuth();
             }, []);
 
-            // --- SALVAR NA NUVEM ---
             const saveToCloud = async (newData) => {
                 if (!db || !user) return;
                 setIsSaving(true);
@@ -229,7 +218,6 @@
                 }
             };
 
-            // --- LÓGICA DE FILTROS ---
             const uniqueEntidades = useMemo(() => ['Todas', ...new Set(collaborators.map(c => c.entidade).filter(Boolean).sort())], [collaborators]);
             const uniqueUnidades = useMemo(() => ['Todas', ...new Set(collaborators.map(c => c.unidade).filter(Boolean).sort())], [collaborators]);
             const uniqueGraduacoes = useMemo(() => ['Todas', ...new Set(collaborators.map(c => c.graduacao).filter(Boolean).sort())], [collaborators]);
@@ -239,13 +227,11 @@
                     const matchesSearch = (colab.nome || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
                                           (colab.unidade || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
                                           (colab.graduacao || '').toLowerCase().includes(searchTerm.toLowerCase());
-                    
                     const matchesEntidade = filterEntidade === 'Todas' || colab.entidade === filterEntidade;
                     const matchesUnidade = filterUnidade === 'Todas' || colab.unidade === filterUnidade;
                     const matchesGraduacao = filterGraduacao === 'Todas' || colab.graduacao === filterGraduacao;
                     const matchesStatus = filterStatus === 'Todos' || 
                                           (filterStatus === 'Contratado' ? (colab.status === 'Contratado' || colab.status === 'Contratada') : colab.status === filterStatus);
-
                     return matchesSearch && matchesEntidade && matchesUnidade && matchesGraduacao && matchesStatus;
                 });
             }, [collaborators, searchTerm, filterEntidade, filterUnidade, filterGraduacao, filterStatus]);
@@ -260,13 +246,12 @@
                 };
             }, [filteredCollaborators]);
 
-            // --- HANDLERS ---
             const handleOpenModal = (collaborator = null) => {
                 if (collaborator) {
                     setFormData(collaborator);
                     setCurrentCollaborator(collaborator);
                 } else {
-                    setFormData({ nome: '', entidade: 'SESI', unidade: '', graduacao: '', admissao: '', status: 'Ativo', mentor: '', motivoSaida: '' });
+                    setFormData({ nome: '', entidade: 'SESI', unidade: '', graduacao: '', admissao: '', status: 'Ativo', mentor: '', motivoSaida: '', dataEncerramento: '' });
                     setCurrentCollaborator(null);
                 }
                 setIsModalOpen(true);
@@ -283,13 +268,9 @@
                 }
                 setCollaborators(newData);
                 setIsModalOpen(false);
-                // Auto-save localmente, mas força nuvem no botão do header
             };
 
-            const handleGlobalSave = () => {
-                saveToCloud(collaborators);
-            };
-
+            const handleGlobalSave = () => saveToCloud(collaborators);
             const handlePrint = () => window.print();
 
             const handleExportExcel = () => {
@@ -298,11 +279,11 @@
                     <head><meta charset="utf-8" /><style>table{border-collapse:collapse;width:100%}th,td{border:1px solid #000;padding:5px;text-align:left}th{background-color:#f2f2f2}</style></head>
                     <body>
                         <table>
-                            <thead><tr><th>Nome</th><th>Entidade</th><th>Unidade</th><th>Graduação</th><th>Admissão</th><th>Status</th><th>Motivo Saída</th><th>Mentor</th></tr></thead>
+                            <thead><tr><th>Nome</th><th>Entidade</th><th>Unidade</th><th>Graduação</th><th>Admissão</th><th>Status</th><th>Motivo Saída</th><th>Data Encerramento</th><th>Mentor</th></tr></thead>
                             <tbody>
                                 ${filteredCollaborators.map(c => `
                                     <tr>
-                                        <td>${c.nome}</td><td>${c.entidade}</td><td>${c.unidade}</td><td>${c.graduacao}</td><td>${c.admissao}</td><td>${c.status}</td><td>${c.motivoSaida || ''}</td><td>${c.mentor}</td>
+                                        <td>${c.nome}</td><td>${c.entidade}</td><td>${c.unidade}</td><td>${c.graduacao}</td><td>${c.admissao}</td><td>${c.status}</td><td>${c.motivoSaida || ''}</td><td>${c.dataEncerramento || ''}</td><td>${c.mentor}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
@@ -409,7 +390,12 @@
                                                             <div>
                                                                 <p className="text-sm font-semibold text-slate-900">{item.nome}</p>
                                                                 <p className="text-xs text-slate-500 print:text-black">{item.admissao}</p>
-                                                                {item.status === 'Encerrado' && item.motivoSaida && <p className="text-xs text-red-500 mt-1 font-medium block">Motivo: {item.motivoSaida}</p>}
+                                                                {item.status === 'Encerrado' && (
+                                                                    <div className="mt-1 text-xs">
+                                                                        {item.motivoSaida && <span className="text-red-500 font-medium block">Motivo: {item.motivoSaida}</span>}
+                                                                        {item.dataEncerramento && <span className="text-slate-500 block">Encerrado em: {item.dataEncerramento}</span>}
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                         </div>
                                                     </td>
@@ -483,21 +469,37 @@
                                                 <option value="Encerrado">Encerrado</option>
                                             </select>
                                         </div>
-                                        {/* CAMPO NOVO: MOTIVO DA SAÍDA (Aparece apenas se Encerrado) */}
+                                        
+                                        {/* BLOCO DE ENCERRAMENTO (MOTIVO E DATA) */}
                                         {formData.status === 'Encerrado' && (
-                                            <div className="col-span-2 bg-red-50 p-3 rounded-lg border border-red-100">
-                                                <label className="block text-xs font-bold text-red-500 uppercase mb-1 flex items-center gap-1">
-                                                    <AlertCircle className="w-3 h-3"/> Motivo da Saída
-                                                </label>
-                                                <input 
-                                                    type="text" 
-                                                    className="w-full rounded-md border-red-200 py-2 text-sm focus:border-red-500 focus:ring-red-500" 
-                                                    placeholder="Descreva o motivo..."
-                                                    value={formData.motivoSaida || ''} 
-                                                    onChange={e => setFormData({...formData, motivoSaida: e.target.value})} 
-                                                />
+                                            <div className="col-span-2 bg-red-50 p-3 rounded-lg border border-red-100 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label className="block text-xs font-bold text-red-500 uppercase mb-1 flex items-center gap-1">
+                                                        <AlertCircle className="w-3 h-3"/> Motivo da Saída
+                                                    </label>
+                                                    <input 
+                                                        type="text" 
+                                                        className="w-full rounded-md border-red-200 py-2 text-sm focus:border-red-500 focus:ring-red-500" 
+                                                        placeholder="Descreva o motivo..."
+                                                        value={formData.motivoSaida || ''} 
+                                                        onChange={e => setFormData({...formData, motivoSaida: e.target.value})} 
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-xs font-bold text-red-500 uppercase mb-1">
+                                                        Data de Encerramento
+                                                    </label>
+                                                    <input 
+                                                        type="text" 
+                                                        placeholder="dd/mm/aaaa"
+                                                        className="w-full rounded-md border-red-200 py-2 text-sm focus:border-red-500 focus:ring-red-500" 
+                                                        value={formData.dataEncerramento || ''} 
+                                                        onChange={e => setFormData({...formData, dataEncerramento: e.target.value})} 
+                                                    />
+                                                </div>
                                             </div>
                                         )}
+
                                         <div className="col-span-2">
                                             <label className="block text-xs font-bold text-slate-500 uppercase">Mentor</label>
                                             <input type="text" className="w-full rounded-lg border-slate-300 py-2 text-sm" value={formData.mentor} onChange={e => setFormData({...formData, mentor: e.target.value})} />
